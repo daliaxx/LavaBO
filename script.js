@@ -1,5 +1,6 @@
 // URL del tuo Google Apps Script (Web App)
-const API_URL = "https://script.google.com/macros/s/AKfycbxNxkBgpzeIsLL8GOTScark6NONcpmRs29OlkMQ8Kru5YPcgj1J1Ke31NDO6jhk4TU6Wg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxPLsQP3PV3odeDgu9UQX-d4j14-0rWwUgCZ3Pi8UxQ/dev";
+
 
 const timeSlots = ["8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"];
 const days = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
