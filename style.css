@@ -67,6 +67,9 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
   font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .tab-btn:hover {
