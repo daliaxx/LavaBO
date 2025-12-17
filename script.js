@@ -100,7 +100,10 @@ function handleAuth() {
           currentUser = user;
           currentPass = pass;
           document.getElementById("login").style.display = "none";
-          document.getElementById("mainAppView").style.display = "block";
+          // Defensive fallback for cached HTML
+          const mainView = document.getElementById("mainAppView") || document.getElementById("app");
+          if (mainView) mainView.style.display = "block";
+
           document.getElementById("welcome").innerText = `👤 Ciao, ${user}`;
           updateWeekLabel();
           loadReservations();
@@ -259,7 +262,9 @@ function callAPI(payload) {
 }
 
 function showProfile() {
-  document.getElementById("mainAppView").style.display = "none";
+  const mainView = document.getElementById("mainAppView") || document.getElementById("app");
+  if (mainView) mainView.style.display = "none";
+
   document.getElementById("profileView").style.display = "block";
   document.getElementById("profileName").innerText = currentUser;
   renderProfile();
@@ -267,7 +272,8 @@ function showProfile() {
 
 function showMain() {
   document.getElementById("profileView").style.display = "none";
-  document.getElementById("mainAppView").style.display = "block";
+  const mainView = document.getElementById("mainAppView") || document.getElementById("app");
+  if (mainView) mainView.style.display = "block";
 }
 
 function renderProfile() {
