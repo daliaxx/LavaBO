@@ -40,9 +40,19 @@
       </div>
     </div>
 
+    <div id="profileModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close-btn" onclick="toggleProfile(false)">&times;</span>
+        <h2>Il mio Profilo</h2>
+        <div id="profileList" class="profile-list">
+          <!-- Reservations injected here -->
+        </div>
+      </div>
+    </div>
+
     <div id="app" style="display:none;">
       <div class="header-controls">
-        <p id="welcome"></p>
+        <button id="welcome" onclick="toggleProfile(true)" class="profile-btn"></button>
         <button onclick="logout()" class="logout-btn">Esci</button>
       </div>
 

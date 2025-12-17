@@ -101,7 +101,7 @@ function handleAuth() {
           currentPass = pass;
           document.getElementById("login").style.display = "none";
           document.getElementById("app").style.display = "block";
-          document.getElementById("welcome").innerText = `Ciao, ${user}`;
+          document.getElementById("welcome").innerText = `👤 Ciao, ${user}`;
           updateWeekLabel();
           loadReservations();
         }
@@ -256,4 +256,87 @@ function callAPI(payload) {
     .finally(() => {
       toggleLoading(false); // Hide loader regardless of success/error
     });
+}
+
+function toggleProfile(show) {
+  document.getElementById("profileModal").style.display = show ? "flex" : "none";
+  if (show) renderProfile();
+}
+
+function renderProfile() {
+  const container = document.getElementById("profileList");
+  container.innerHTML = "";
+
+  const myRes = allReservations.filter(r => r.user === currentUser);
+
+  // Sort: Future first, then past
+  myRes.sort((a, b) => new Date(a.date + "T" + a.time) - new Date(b.date + "T" + b.time));
+
+  const now = new Date();
+  const todayStr = formatDate(now);
+  const nowTime = now.getHours() + ":" + now.getMinutes();
+
+  if (myRes.length === 0) {
+    container.innerHTML = "<p>Nessuna prenotazione trovata.</p>";
+    return;
+  }
+
+  // Split into Future and Past
+  const future = [];
+  const past = [];
+
+  myRes.forEach(r => {
+    // Simple comparison string based
+    if (r.date > todayStr || (r.date === todayStr && r.time >= nowTime)) {
+      future.push(r);
+    } else {
+      past.push(r);
+    }
+  });
+
+  // Render Future
+  if (future.length > 0) {
+    const h3 = document.createElement("h3");
+    h3.innerText = "📅 Prossime Prenotazioni";
+    container.appendChild(h3);
+    future.forEach(r => container.appendChild(createResCard(r, true)));
+  }
+
+  // Render Past
+  if (past.length > 0) {
+    const h3 = document.createElement("h3");
+    h3.innerText = "📜 Storico";
+    h3.style.marginTop = "20px";
+    container.appendChild(h3);
+    past.reverse(); // Show most recent past first
+    past.forEach(r => container.appendChild(createResCard(r, false)));
+  }
+}
+
+function createResCard(res, isFuture) {
+  const div = document.createElement("div");
+  div.className = `res-card ${isFuture ? "res-future" : "res-past"}`;
+
+  const datePretty = formatDateDisplay(new Date(res.date));
+
+  const info = document.createElement("div");
+  info.className = "res-info";
+  info.innerHTML = `<strong>${res.machine}</strong> ${datePretty} alle ${res.time}`;
+
+  div.appendChild(info);
+
+  if (isFuture) {
+    const btn = document.createElement("button");
+    btn.className = "delete-btn-mini";
+    btn.innerText = "🗑️";
+    btn.onclick = () => {
+      if (confirm("Eliminare questa prenotazione?")) {
+        tryDelete({ ...res, user: currentUser }); // Ensure user matches
+        toggleProfile(false); // Close modal to refresh
+      }
+    };
+    div.appendChild(btn);
+  }
+
+  return div;
 }
