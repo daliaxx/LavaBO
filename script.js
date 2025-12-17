@@ -233,12 +233,27 @@ function tryDelete(resObj) {
   });
 }
 
+function toggleLoading(show) {
+  const overlay = document.getElementById("loadingOverlay");
+  if (show) {
+    overlay.style.display = "flex";
+  } else {
+    overlay.style.display = "none";
+  }
+}
+
 function callAPI(payload) {
+  toggleLoading(true); // Show loader
+
   return fetch(API_URL, {
     method: "POST",
     body: JSON.stringify(payload)
-  }).then(r => r.json()).catch(err => {
-    console.error(err);
-    return { status: "error", message: "Network Error" };
-  });
+  }).then(r => r.json())
+    .catch(err => {
+      console.error(err);
+      return { status: "error", message: "Network Error" };
+    })
+    .finally(() => {
+      toggleLoading(false); // Hide loader regardless of success/error
+    });
 }
