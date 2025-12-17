@@ -104,7 +104,7 @@ function handleAuth() {
           const mainView = document.getElementById("mainAppView") || document.getElementById("app");
           if (mainView) mainView.style.display = "block";
 
-          document.getElementById("welcome").innerText = `👤 Ciao, ${user}`;
+          document.getElementById("welcome").innerText = `⭐️ Ciao, ${user}`;
           updateWeekLabel();
           loadReservations();
         }
