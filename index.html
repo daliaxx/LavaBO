@@ -1,12 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lavanderia Forni</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <header>
     <h1>Lavanderia Forni</h1>
@@ -14,25 +15,52 @@
 
   <main>
     <div id="login">
-      <label for="user">Chi sei? (es. APP 1)</label>
-      <input type="text" id="user" placeholder="APP 1">
-      <button onclick="login()">Accedi</button>
+      <h2 id="loginTitle">Accesso Condomini</h2>
+      <div class="login-box">
+        <label for="user">Nome Utente</label>
+        <input type="text" id="user" placeholder="Es. Mario">
+
+        <label for="pass">Password</label>
+        <input type="password" id="pass" placeholder="Password">
+
+        <button id="loginBtn" onclick="handleAuth()">Accedi</button>
+
+        <p class="toggle-auth" onclick="toggleAuthMode()">
+          Non hai un account? <span id="toggleText">Registrati</span>
+        </p>
+      </div>
     </div>
 
     <div id="app" style="display:none;">
-      <p id="welcome"></p>
+      <div class="header-controls">
+        <p id="welcome"></p>
+        <button onclick="logout()" class="logout-btn">Esci</button>
+      </div>
+
+      <div class="controls">
+        <button onclick="changeWeek(-1)">❮ Settimana Prec.</button>
+        <span id="currentWeekLabel">...</span>
+        <button onclick="changeWeek(1)">Settimana Succ. ❯</button>
+      </div>
+
+      <div class="tabs-container">
+        <button class="tab-btn active" onclick="switchTab('Lavatrice1', this)">Lavatrice 1</button>
+        <button class="tab-btn" onclick="switchTab('Lavatrice2', this)">Lavatrice 2</button>
+        <button class="tab-btn" onclick="switchTab('Asciugatrice', this)">Asciugatrice</button>
+      </div>
+
       <div class="table-container">
         <table id="calendar">
           <thead>
             <tr>
               <th>Orario</th>
-              <th>Lunedì</th>
-              <th>Martedì</th>
-              <th>Mercoledì</th>
-              <th>Giovedì</th>
-              <th>Venerdì</th>
-              <th>Sabato</th>
-              <th>Domenica</th>
+              <th data-day="0">Lun</th>
+              <th data-day="1">Mar</th>
+              <th data-day="2">Mer</th>
+              <th data-day="3">Gio</th>
+              <th data-day="4">Ven</th>
+              <th data-day="5">Sab</th>
+              <th data-day="6">Dom</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -47,4 +75,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,112 +1,315 @@
 :root {
-  --rosa: #f7c1d9;
-  --rosa-scuro: #ec96bb;
-  --bianco: #fff;
-  --grigio: #eee;
+  --primary: #d978a4;
+  /* Rosa Scuro per azioni principali */
+  --primary-light: #fce4ec;
+  /* Rosa chiarissimo per hover */
+  --primary-bg: #fff0f5;
+  /* Lavender blush per sfondi */
+  --secondary: #e0e0e0;
+  /* Bordi */
+  --text: #2c3e50;
+  --occupied: #e57373;
+  --occupied-bg: #ffebee;
+  --owned: #81c784;
+  --owned-bg: #e8f5e9;
+  --bg-gradient: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--bianco);
-  color: #333;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text);
+  min-height: 100vh;
 }
 
 header {
-  background-color: var(--rosa);
-  color: #222;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: white;
+  color: var(--primary);
+}
+
+padding: 15px;
+text-align: center;
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+position: sticky;
+top: 0;
+z-index: 100;
 }
 
 h1 {
   margin: 0;
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: -0.5px;
 }
 
 main {
-  padding: 20px;
-}
-
-#login {
-  max-width: 300px;
+  padding: 20px 10px;
+  max-width: 1200px;
   margin: auto;
+}
+
+/* TABS */
+.tabs-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background: white;
+  border: 2px solid transparent;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  color: #7f8c8d;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  font-size: 15px;
+}
+
+.tab-btn:hover {
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(142, 68, 173, 0.3);
+}
+
+/* LOGIN */
+#login {
+  max-width: 400px;
+  margin: 80px auto;
   text-align: center;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-#login input {
-  padding: 10px;
-  margin: 10px 0;
+.login-box label {
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.login-box input {
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 14px;
+  margin-top: 8px;
+  border: 2px solid var(--secondary);
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.2s;
 }
 
-#login button {
-  padding: 10px 20px;
-  background-color: var(--rosa-scuro);
+.login-box input:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.login-box button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  background-color: var(--primary);
   color: white;
   border: none;
-  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.login-box button:active {
+  transform: scale(0.98);
+}
+
+.toggle-auth {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #95a5a6;
+}
+
+#toggleText {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
   cursor: pointer;
 }
 
-#login button:hover {
-  background-color: #d978a4;
+/* CONTROLS */
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 10px;
 }
 
 #welcome {
-  text-align: center;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.logout-btn {
+  background-color: #f1f2f6;
+  color: #7f8c8d;
+  font-weight: 600;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
+.controls button {
+  background: white;
+  border: 1px solid var(--secondary);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#currentWeekLabel {
+  font-size: 16px;
+  font-weight: 700;
+  min-width: 180px;
+  text-align: center;
+}
+
+/* TABLE */
 .table-container {
   overflow-x: auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  max-width: 100vw;
+  /* Smooth horizontal scroll */
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
   width: 100%;
-  border-collapse: collapse;
-  margin: auto;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 14px;
-  min-width: 700px;
+  min-width: 800px;
+  /* Force scroll on small screens */
 }
 
-th, td {
-  border: 1px solid var(--grigio);
-  padding: 10px;
+th,
+td {
+  padding: 15px;
   text-align: center;
+  border-bottom: 1px solid var(--secondary);
+  border-right: 1px solid var(--secondary);
+  /* Vertical dividers */
 }
 
-td:hover {
-  background-color: #ffe2ec;
+/* Sticky First Column (Hours) */
+td:first-child,
+th:first-child {
+  position: sticky;
+  left: 0;
+  background-color: white;
+  z-index: 10;
+  border-right: 2px solid var(--secondary);
+  font-weight: 700;
+  color: #95a5a6;
+  min-width: 60px;
+}
+
+th {
+  background-color: #f8f9fa;
+  color: #7f8c8d;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+td {
+  transition: background 0.2s;
+}
+
+td:not(:first-child):hover:not(.occupied) {
+  background-color: var(--primary-light);
   cursor: pointer;
 }
 
+/* Slot States */
+.occupied {
+  background-color: var(--occupied-bg);
+  color: var(--occupied);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
 .owned {
-  background-color: #ffe6f0;
-  font-weight: bold;
+  background-color: var(--owned-bg) !important;
+  color: var(--owned) !important;
+  cursor: pointer !important;
+  border: 1px solid var(--owned);
 }
 
 footer {
-  margin-top: 40px;
+  margin-top: 60px;
   text-align: center;
   font-size: 12px;
-  color: #777;
+  color: #bdc3c7;
+  padding-bottom: 20px;
 }
 
 @media screen and (max-width: 768px) {
-  th, td {
-    padding: 8px;
+  h1 {
+    font-size: 20px;
+  }
+
+  .controls button {
+    padding: 5px 10px;
     font-size: 12px;
   }
 
-  h1 {
-    font-size: 24px;
+  #currentWeekLabel {
+    font-size: 14px;
+    min-width: auto;
   }
 
-  #login {
-    padding: 10px;
+  th,
+  td {
+    padding: 10px 5px;
+    font-size: 12px;
+  }
+
+  /* Tabs stacking */
+  .tabs-container {
+    gap: 8px;
+  }
+
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 13px;
   }
 }
