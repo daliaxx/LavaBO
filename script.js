@@ -100,7 +100,7 @@ function handleAuth() {
           currentUser = user;
           currentPass = pass;
           document.getElementById("login").style.display = "none";
-          document.getElementById("app").style.display = "block";
+          document.getElementById("mainAppView").style.display = "block";
           document.getElementById("welcome").innerText = `👤 Ciao, ${user}`;
           updateWeekLabel();
           loadReservations();
@@ -258,14 +258,24 @@ function callAPI(payload) {
     });
 }
 
-function toggleProfile(show) {
-  document.getElementById("profileModal").style.display = show ? "flex" : "none";
-  if (show) renderProfile();
+function showProfile() {
+  document.getElementById("mainAppView").style.display = "none";
+  document.getElementById("profileView").style.display = "block";
+  document.getElementById("profileName").innerText = currentUser;
+  renderProfile();
+}
+
+function showMain() {
+  document.getElementById("profileView").style.display = "none";
+  document.getElementById("mainAppView").style.display = "block";
 }
 
 function renderProfile() {
-  const container = document.getElementById("profileList");
-  container.innerHTML = "";
+  const futureContainer = document.getElementById("futureList");
+  const pastContainer = document.getElementById("pastList");
+
+  futureContainer.innerHTML = "";
+  pastContainer.innerHTML = "";
 
   const myRes = allReservations.filter(r => r.user === currentUser);
 
@@ -277,40 +287,25 @@ function renderProfile() {
   const nowTime = now.getHours() + ":" + now.getMinutes();
 
   if (myRes.length === 0) {
-    container.innerHTML = "<p>Nessuna prenotazione trovata.</p>";
+    futureContainer.innerHTML = "<p>Nessuna prenotazione futura.</p>";
+    pastContainer.innerHTML = "<p>Nessuno storico.</p>";
     return;
   }
-
-  // Split into Future and Past
-  const future = [];
-  const past = [];
 
   myRes.forEach(r => {
     // Simple comparison string based
     if (r.date > todayStr || (r.date === todayStr && r.time >= nowTime)) {
-      future.push(r);
+      futureContainer.appendChild(createResCard(r, true));
     } else {
-      past.push(r);
+      // Prepend to show most recent at top of list logic if strict reverse needed
+      // but here we are sorted asc. Let's prepend for past to have desc order visually
+      pastContainer.prepend(createResCard(r, false));
     }
   });
 
-  // Render Future
-  if (future.length > 0) {
-    const h3 = document.createElement("h3");
-    h3.innerText = "📅 Prossime Prenotazioni";
-    container.appendChild(h3);
-    future.forEach(r => container.appendChild(createResCard(r, true)));
-  }
-
-  // Render Past
-  if (past.length > 0) {
-    const h3 = document.createElement("h3");
-    h3.innerText = "📜 Storico";
-    h3.style.marginTop = "20px";
-    container.appendChild(h3);
-    past.reverse(); // Show most recent past first
-    past.forEach(r => container.appendChild(createResCard(r, false)));
-  }
+  // Feedback empty states
+  if (futureContainer.children.length === 0) futureContainer.innerHTML = "<p>Nessuna prenotazione futura.</p>";
+  if (pastContainer.children.length === 0) pastContainer.innerHTML = "<p>Nessuno storico.</p>";
 }
 
 function createResCard(res, isFuture) {
@@ -331,8 +326,9 @@ function createResCard(res, isFuture) {
     btn.innerText = "🗑️";
     btn.onclick = () => {
       if (confirm("Eliminare questa prenotazione?")) {
-        tryDelete({ ...res, user: currentUser }); // Ensure user matches
-        toggleProfile(false); // Close modal to refresh
+        tryDelete({ ...res, user: currentUser });
+        // We stay on profile, just refresh
+        setTimeout(renderProfile, 500); // Small delay to allow delete to propagate locally or optimistically remove
       }
     };
     div.appendChild(btn);

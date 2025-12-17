@@ -40,19 +40,31 @@
       </div>
     </div>
 
-    <div id="profileModal" class="modal" style="display: none;">
-      <div class="modal-content">
-        <span class="close-btn" onclick="toggleProfile(false)">&times;</span>
-        <h2>Il mio Profilo</h2>
-        <div id="profileList" class="profile-list">
-          <!-- Reservations injected here -->
+    <!-- Profile View (Hidden by default) -->
+    <div id="profileView" style="display: none;" class="profile-container">
+      <div class="profile-header">
+        <button onclick="showMain()" class="back-btn">⬅️ Torna al Calendario</button>
+        <div class="user-avatar-large">👤</div>
+        <h2 id="profileName">Nome Utente</h2>
+      </div>
+
+      <div class="profile-content">
+        <div id="futureReservations" class="profile-section">
+          <h3>📅 Prossime Prenotazioni</h3>
+          <div class="list-container" id="futureList"></div>
+        </div>
+
+        <div id="pastReservations" class="profile-section">
+          <h3>📜 Storico</h3>
+          <div class="list-container" id="pastList"></div>
         </div>
       </div>
     </div>
 
-    <div id="app" style="display:none;">
+    <!-- Main App View -->
+    <div id="mainAppView" style="display:none;">
       <div class="header-controls">
-        <button id="welcome" onclick="toggleProfile(true)" class="profile-btn"></button>
+        <button id="welcome" onclick="showProfile()" class="profile-btn"></button>
         <button onclick="logout()" class="logout-btn">Esci</button>
       </div>
 
