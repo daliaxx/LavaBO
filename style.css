@@ -360,22 +360,26 @@ footer {
 
 /* PROFILE PAGE (SPA) */
 .profile-btn {
-  background: none;
-  border: none;
+  background: white;
+  border: 2px solid transparent;
+  padding: 10px 20px;
+  border-radius: 50px;
   font-weight: 700;
-  font-size: 18px;
   color: var(--primary);
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  font-size: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 10px;
-  border-radius: 8px;
-  transition: background 0.2s;
 }
 
 .profile-btn:hover {
-  background-color: var(--primary-bg);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  /* Ensure bg stays white or use var(--primary-bg) if preferred */
 }
 
 .profile-container {
