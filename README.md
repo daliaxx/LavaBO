@@ -1,17 +1,5 @@
 # LavaBO - Lavanderia Condominiale
-
-Sistema di prenotazione per lavatrici e asciugatrici.
-
-**Ultimo Aggiornamento:**
-*   🎨 **Nuovo Tema Rosa** & Design Premium.
-*   📅 **Griglia Tabella** con divisori tra giorni.
-*   📱 **Navigazione a Tab** per le macchine.
-*   🔒 **Login & Registrazione** utenti.
-*   👤 **Pagina Profilo** con storico.
-
-Visita il sito su GitHub Pages!
-
----
+![IMG_1494](https://github.com/user-attachments/assets/7c865e6f-0546-4359-8d51-f78429f23f0d)
 
 ## 📖 Guida per i Condomini
 
