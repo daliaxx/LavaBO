@@ -64,22 +64,25 @@ function formatDateDisplay(date) {
 
 let isRegisterMode = false;
 
-function toggleAuthMode() {
-  isRegisterMode = !isRegisterMode;
-  const title = document.getElementById("loginTitle");
+function switchAuthTab(mode) {
+  isRegisterMode = (mode === 'register');
+
   const btn = document.getElementById("loginBtn");
-  const toggleText = document.getElementById("toggleText");
+  const tabLogin = document.getElementById("tabLogin");
+  const tabRegister = document.getElementById("tabRegister");
 
   if (isRegisterMode) {
-    title.innerText = "Registrazione";
     btn.innerText = "Registrati";
-    toggleText.innerText = "Accedi";
+    tabRegister.classList.add("active");
+    tabLogin.classList.remove("active");
   } else {
-    title.innerText = "Accesso Condomini";
     btn.innerText = "Accedi";
-    toggleText.innerText = "Registrati";
+    tabLogin.classList.add("active");
+    tabRegister.classList.remove("active");
   }
 }
+
+// REMOVED toggleAuthMode entirely
 
 function handleAuth() {
   const user = document.getElementById("user").value;
@@ -94,7 +97,7 @@ function handleAuth() {
       if (res.status === "success") {
         if (isRegisterMode) {
           alert(res.data.message);
-          toggleAuthMode(); // Switch back to login
+          switchAuthTab('login'); // Switch back to login
         } else {
           // Login success
           currentUser = user;

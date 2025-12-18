@@ -24,7 +24,14 @@
 
   <main>
     <div id="login">
-      <h2 id="loginTitle">Accesso Condomini</h2>
+      <!-- Auth Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Accedi</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Registrati</button>
+      </div>
+
+      <h2 id="loginTitle" style="display:none;">Accesso Condomini</h2> <!-- Hidden, using tabs now -->
+
       <div class="login-box">
         <label for="user">Nome Utente</label>
         <input type="text" id="user" placeholder="Es. Mario">
@@ -34,9 +41,7 @@
 
         <button id="loginBtn" onclick="handleAuth()">Accedi</button>
 
-        <p class="toggle-auth" onclick="toggleAuthMode()">
-          Non hai un account? <span id="toggleText">Registrati</span>
-        </p>
+        <!-- Toggle text removed, replaced by tabs -->
       </div>
     </div>
 

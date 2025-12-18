@@ -85,12 +85,45 @@ main {
 /* LOGIN */
 #login {
   max-width: 400px;
-  margin: 80px auto;
+  margin: 60px auto;
   text-align: center;
   background: white;
-  padding: 40px;
+  padding: 0;
+  /* Removing padding from container to let header spanning full width */
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  /* For tab radius */
+}
+
+/* AUTH TABS */
+.auth-tabs {
+  display: flex;
+  background: #f1f2f6;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 20px;
+  cursor: pointer;
+  background: #f1f2f6;
+  border: none;
+  font-weight: 600;
+  color: #95a5a6;
+  font-size: 16px;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.auth-tab.active {
+  background: white;
+  color: var(--primary);
+  font-weight: 800;
+  border-bottom: 2px solid var(--primary);
+}
+
+.login-box {
+  padding: 30px 40px 40px 40px;
 }
 
 .login-box label {
@@ -298,10 +331,33 @@ footer {
     min-width: auto;
   }
 
+  /* Compact Table for Mobile */
   th,
   td {
-    padding: 10px 5px;
-    font-size: 12px;
+    padding: 6px 3px;
+    /* Drastically reduced padding */
+    font-size: 11px;
+    /* Smaller font */
+  }
+
+  /* Sticky first column adjustments */
+  td:first-child,
+  th:first-child {
+    min-width: 40px;
+    font-size: 11px;
+    padding: 6px 2px;
+  }
+
+  table {
+    min-width: 100%;
+    /* Allow to fit if possible, or scroll if not */
+  }
+
+  .occupied,
+  .owned {
+    font-size: 10px;
+    /* Smaller text for user names */
+    padding: 2px;
   }
 
   /* Tabs stacking */
