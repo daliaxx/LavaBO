@@ -80,6 +80,19 @@ function switchAuthTab(mode) {
     tabLogin.classList.add("active");
     tabRegister.classList.remove("active");
   }
+
+  // Toggle helper text
+  const helpText = document.getElementById("passHelp");
+  if (helpText) {
+    helpText.style.display = isRegisterMode ? "block" : "none";
+  }
+
+  // Clear errors when switching tabs
+  const errorBox = document.getElementById("authError");
+  if (errorBox) {
+    errorBox.style.display = "none";
+    errorBox.innerText = "";
+  }
 }
 
 // REMOVED toggleAuthMode entirely
@@ -87,8 +100,27 @@ function switchAuthTab(mode) {
 function handleAuth() {
   const user = document.getElementById("user").value;
   const pass = document.getElementById("pass").value;
+  const errorBox = document.getElementById("authError");
 
-  if (!user || !pass) return alert("Compila tutti i campi.");
+  // Clear previous errors
+  if (errorBox) {
+    errorBox.style.display = "none";
+    errorBox.innerText = "";
+  }
+
+  if (!user || !pass) {
+    return showAuthError("Compila tutti i campi.");
+  }
+
+  if (isRegisterMode) {
+    // Validate password: at least one letter and one number
+    const hasLetter = /[a-zA-Z]/.test(pass);
+    const hasNumber = /[0-9]/.test(pass);
+
+    if (!hasLetter || !hasNumber) {
+      return showAuthError("La password deve contenere almeno una lettera e un numero.");
+    }
+  }
 
   const action = isRegisterMode ? "register" : "test_login";
 
@@ -112,9 +144,19 @@ function handleAuth() {
           loadReservations();
         }
       } else {
-        alert("Errore: " + res.message);
+        showAuthError("Errore: " + res.message);
       }
     });
+}
+
+function showAuthError(msg) {
+  const errorBox = document.getElementById("authError");
+  if (errorBox) {
+    errorBox.innerText = msg;
+    errorBox.style.display = "block";
+  } else {
+    alert(msg); // Fallback
+  }
 }
 
 function logout() {
