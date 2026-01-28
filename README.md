@@ -1,5 +1,6 @@
 # LavaBO - Lavanderia Condominiale
-![Prenotazione Lavanderia](assets/qr.png)
+![Prenotazione Lavanderia](![lavanderia](https://github.com/user-attachments/assets/c5ff269b-b301-4e16-8cbb-da1cc51b6954)
+)
 
 ## 📖 Guida per i Condomini
 
